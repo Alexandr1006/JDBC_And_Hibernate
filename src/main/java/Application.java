@@ -39,7 +39,7 @@ public class Application {
 
             employeeDAO.updateEmployeeById(8, "Andrey", "Petrov", "male", 40, 1);
 
-          //employeeDAO.deleteById(4);
+          employeeDAO.deleteById(4);
         }
     }
 }

@@ -21,8 +21,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             statement.setString(2, employee.getLastName());
             statement.setString(3, employee.getGender());
             statement.setInt(4, employee.getAge());
-            statement.setInt(5, employee.getId());
+            statement.setInt(5, employee.getCity().getId());
             statement.executeUpdate();
+
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -38,7 +39,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
 
-                employee.setId(Integer.parseInt(resultSet.getString("employee_id")));
+                employee.setId(Integer.parseInt(resultSet.getString("id")));
                 employee.setFirstName(resultSet.getString("first_name"));
                 employee.setLastName(resultSet.getString("last_name"));
                 employee.setGender(resultSet.getString("gender"));
@@ -60,7 +61,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int id = Integer.parseInt(resultSet.getString("employee_id"));
+                int id = Integer.parseInt(resultSet.getString("id"));
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
                 String gender = resultSet.getString("gender");
@@ -78,8 +79,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public void updateEmployeeById(int id, String firstName, String lastName, String gender, int age, int cityId) {
 
-        try(PreparedStatement statement = connection.prepareStatement("UPDATE employee SET firstName=(?), lastName=(?), gender=(?), age=(?), " +
-                "cityId=(?) " + "WHERE id=(?)")){
+        try(PreparedStatement statement = connection.prepareStatement("UPDATE employee SET first_name=(?), last_name=(?), gender=(?), age=(?), " +
+                "city_Id=(?) " + "WHERE id=(?)")){
 
             statement.setString(1, firstName);
             statement.setString(2, lastName);

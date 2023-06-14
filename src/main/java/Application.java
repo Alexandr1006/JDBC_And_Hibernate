@@ -11,7 +11,7 @@ public class Application {
         try (final Connection connection = DriverManager.getConnection(url, user, password);
              PreparedStatement statement = connection.prepareStatement("SELECT first_name, last_name, gender, city_name FROM employee INNER JOIN city ON employee.city_id = city.city_id WHERE id = (?)")) {
 
-            statement.setInt(1, 2);
+            statement.setInt(1, 1);
             final ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -30,16 +30,16 @@ public class Application {
         }
         try (final Connection connection = DriverManager.getConnection(url, user, password)) {
             EmployeeDAO employeeDAO = new EmployeeDAOImpl(connection);
-            employeeDAO.create(new Employee("Serge", "Snow", "man", 35, new City(8, "Moscow")));
+          employeeDAO.create(new Employee("Serge", "Snow", "man", 35, new City(5, "Omsk")));
 
-            System.out.println(employeeDAO.readById(3));
+             System.out.println(employeeDAO.readById(5));
 
             List<Employee> employeeList = new ArrayList<>(employeeDAO.readAll());
             employeeList.forEach(System.out::println);
 
-            employeeDAO.updateEmployeeById(8, "Andrey", "Petrov", "male", 40, 1);
+            employeeDAO.updateEmployeeById(5, "Andrey", "Petrov", "man", 40, 1);
+         employeeDAO.deleteById(5);
 
-          employeeDAO.deleteById(4);
         }
     }
 }

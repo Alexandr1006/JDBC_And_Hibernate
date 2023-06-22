@@ -1,16 +1,28 @@
+import javax.persistence.*;
 import java.util.Objects;
-
+@Entity
+@Table(name = "Employee")
 public class Employee {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name = "id")
     private int id;
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+    @Column(name = "gender", nullable = false)
     private String gender;
+    @Column(name = "age", nullable = false)
     private int age;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
     private City city;
 
     public Employee() {
     }
+
 
     public Employee(String firstName, String lastName, String gender, int age, City city) {
         this.firstName = firstName;
@@ -82,11 +94,23 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return id == employee.id && age == employee.age && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(gender, employee.gender) && Objects.equals(city, employee.city);
+        return id == employee.id && age == employee.age && city == employee.city && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(gender, employee.gender);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, gender, age, city);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", age=" + age +
+                ", city=" + city +
+                '}';
     }
 }
